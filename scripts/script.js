@@ -16,7 +16,7 @@ function success(position) {
 }
 
 function error(err) {
-    console.log('Error occurred:', err.message);
+    alert('Here is mistake!');
 }
 
 const chooseCity = document.querySelector('.search-choose');
@@ -27,6 +27,8 @@ const chooseFilter = document.querySelector('.filter__choose');
 const btns = document.querySelectorAll('.btn');
 
 const cards = document.querySelector('.cards-container');
+
+const theme = document.querySelector('.theme');
 
 async function getCurrentWeatherInfo() {
     try {
@@ -162,6 +164,24 @@ function setTab(btns) {
         });
     });
 }
+
+function addDarkTheme() {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'css/dark.css';
+    link.id = 'dark-css';
+    document.head.appendChild(link);
+}
+
+theme.addEventListener('click', () => {
+    const isDark = document.getElementById('dark-css');
+
+    if (isDark) {
+        isDark.remove();
+    } else {
+        addDarkTheme();
+    }
+})
 
 getLocation();
 setTab(btns);

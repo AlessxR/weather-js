@@ -1,0 +1,38 @@
+body {
+    background: rgb(13, 17, 23);
+}
+
+.search-choose {
+    background: rgb(79, 79, 79);
+    color: white;
+}
+
+.current__today, .current__more {
+    box-shadow: 2px 5px 25px -3px rgba(180, 180, 180, 0.25);
+    background: rgb(79, 79, 79);
+    color: white;
+}
+
+.current__nav-descr {
+    color: white;
+}
+
+.btn {
+    box-shadow: 2px 5px 25px -3px rgba(180, 180, 180, 0.25);
+    background: rgb(79, 79, 79);
+    color: white;
+}
+
+.card {
+    background: rgb(46, 48, 53);
+}
+
+.cards__container {
+    border-radius: 0px 0px 20px 20px;
+    box-shadow: 2px 5px 25px -3px rgba(180, 180, 180, 0.25);
+    background: rgb(79, 79, 79);
+}
+
+.card__temp, .card__title {
+    color: white;
+}
