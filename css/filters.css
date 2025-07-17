@@ -1,0 +1,13 @@
+.filters {
+    padding-top: 50px;
+}
+
+.filters > .container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter__choose {
+    display: flex;
+    gap: 15px;
+}

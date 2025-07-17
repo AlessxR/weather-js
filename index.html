@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/current.css" />
+    <link rel="stylesheet" href="css/filters.css">
+    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/style.css" />
+    <title>JS Weather</title>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header__logo">
+                <img src="assets/logo/logo.svg" alt="Logotype" class="logo" />
+                <span>JavaScript Weather</span>
+            </div>
+
+            <div class="header__search">
+                <img src="assets/logo/humanity.svg" alt="Humanity" class="search-img" />
+
+                <select name="choose-city" class="search-choose">
+                    <option value="1">Выбрать город</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="current">
+            <div class="container">
+                <div class="current__today">
+                    <div class="current__today__block">
+                        <div class="current__today-left">
+                            <div class="current__info">
+                                <h3 class="current__temp">20°</h3>
+                                <h3 class="current__label">Сегодня</h3>
+                            </div>
+                        </div>
+                        <div class="current__today-right">
+                            <img class="current__icon" src="assets/weathers/sunny.svg" alt="Sunny" />
+                        </div>
+                    </div>
+                    <div class="current__time">
+                        <time class="current__time-current">Время: 21:54</time>
+                        <h3 class="current__time-city">Город: Санкт Петербург</h3>
+                    </div>
+                </div>
+
+                <div class="current__more">
+                    <nav class="current__nav">
+                        <ul class="current__nav-list">
+                            <li class="current__nav-item">
+                                <img class="current__nav-icon" src="assets/icons/temp.svg" alt="Temperature" />
+                                <h3 class="current__nav-header">Температура</h3>
+                                <h3 class="current__nav-descr">20° - ощущается как 17°</h3>
+                            </li>
+
+                            <li class="current__nav-item">
+                                <img class="current__nav-icon" src="assets/icons/pressure.svg" alt="Pressure" />
+                                <h3 class="current__nav-header">Давление</h3>
+                                <h3 class="current__nav-descr">765 мм ртутного столба - нормальное</h3>
+                            </li>
+
+                            <li class="current__nav-item">
+                                <img class="current__nav-icon" src="assets/icons/precipitation.svg"
+                                    alt="Precipitation" />
+                                <h3 class="current__nav-header">Осадки</h3>
+                                <h3 class="current__nav-descr">Без осадков</h3>
+                            </li>
+
+                            <li class="current__nav-item">
+                                <img class="current__nav-icon" src="assets/icons/wind.svg" alt="Wind" />
+                                <h3 class="current__nav-header">Ветер</h3>
+                                <h3 class="current__nav-descr">3 м/с юго-запад - легкий ветер</h3>
+                            </li>
+
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
+
+        <section class="filters">
+            <div class="container">
+                <div class="filter__choose">
+                    <button class="btn active choose-week">На неделю</button>
+                    <button class="btn choose-month">На месяц</button>
+                    <button class="btn choose-ten">На 10 дней</button>
+                </div>
+
+                <div class="filter__reset">
+                    <button class="btn rest-resetBtn">Отменить</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="cards">
+            <div class="container">
+                <div class="card">
+                    <h3 class="card__title">Сегодня</h3>
+                    <time class="card__date">28 авг</time>
+                    <img src="assets/weathers/rainy.svg" alt="Rainy" class="card__img" />
+                    <p class="card__temp">+18°</p>
+                    <small class="card__temp-night">+15°</small>
+                    <p class="card__descr">Облачно</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="scripts/script.js"></script>
+</body>
+
+</html>

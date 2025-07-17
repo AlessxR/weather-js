@@ -1,0 +1,94 @@
+.current {
+    padding-top: 50px;
+}
+
+.current > .container {
+    display: flex;
+    /* flex-direction: column; */
+    gap: 50px;
+}
+
+.current__today {
+    width: 40%;
+    height: 370px;
+    display: flex;
+    flex-direction: column;
+    gap: 31px;
+    border-radius: 20px;
+    box-shadow: 2px 5px 25px -3px rgba(180, 180, 180, 0.25);
+    background: rgb(255, 255, 255);
+    padding: 20px;
+}
+
+.current__today__block {
+    display: flex;
+    align-items: center;
+    gap: 67px;
+}
+
+.current__temp {
+    color: rgb(71, 147, 255);
+    font-size: 96px;
+    font-weight: 500;
+}
+
+.current__label {
+    font-size: 40px;
+    font-weight: 400;
+}
+
+.current__time {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.current__time-current, .current__time-city {
+    color: rgb(147, 156, 176);
+    font-size: 25px;
+    font-weight: 400;
+}
+
+.current__more {
+    width: 70%;
+    height: 370px;
+
+    border-radius: 20px;
+    box-shadow: 2px 5px 25px -3px rgba(180, 180, 180, 0.25);
+    background: rgb(255, 255, 255);
+    padding: 42px 0 41px 31px;
+}
+
+.current__nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.current__nav-item {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.current__nav-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    box-shadow: 1px 4px 10px -1px rgba(71, 147, 255, 0.2);
+    background: rgb(255, 255, 255);
+    border-radius: 50%;
+}
+
+.current__nav-header {
+    font-size: 14px;
+    color: rgb(147, 156, 176);
+}
+
+.current__nav-descr {
+    color: black;
+    font-size: 14px;
+    font-weight: 400;
+}
