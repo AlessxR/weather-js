@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/current.css" />
-    <link rel="stylesheet" href="css/filters.css">
-    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/filters.css" />
+    <link rel="stylesheet" href="css/cards.css" />
     <link rel="stylesheet" href="css/style.css" />
     <title>JS Weather</title>
 </head>
@@ -25,7 +25,7 @@
                 <img src="assets/logo/humanity.svg" alt="Humanity" class="search-img" />
 
                 <select name="choose-city" class="search-choose">
-                    <option value="1">Выбрать город</option>
+                    <!-- <option value="1">Выбрать город</option> -->
                 </select>
             </div>
         </div>
@@ -35,7 +35,7 @@
         <section class="current">
             <div class="container">
                 <div class="current__today">
-                    <div class="current__today__block">
+                    <!-- <div class="current__today__block">
                         <div class="current__today-left">
                             <div class="current__info">
                                 <h3 class="current__temp">20°</h3>
@@ -49,13 +49,13 @@
                     <div class="current__time">
                         <time class="current__time-current">Время: 21:54</time>
                         <h3 class="current__time-city">Город: Санкт Петербург</h3>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="current__more">
                     <nav class="current__nav">
                         <ul class="current__nav-list">
-                            <li class="current__nav-item">
+                            <!-- <li class="current__nav-item">
                                 <img class="current__nav-icon" src="assets/icons/temp.svg" alt="Temperature" />
                                 <h3 class="current__nav-header">Температура</h3>
                                 <h3 class="current__nav-descr">20° - ощущается как 17°</h3>
@@ -78,8 +78,7 @@
                                 <img class="current__nav-icon" src="assets/icons/wind.svg" alt="Wind" />
                                 <h3 class="current__nav-header">Ветер</h3>
                                 <h3 class="current__nav-descr">3 м/с юго-запад - легкий ветер</h3>
-                            </li>
-
+                            </li> -->
                         </ul>
                     </nav>
                 </div>
@@ -89,9 +88,13 @@
         <section class="filters">
             <div class="container">
                 <div class="filter__choose">
-                    <button class="btn active choose-week">На неделю</button>
-                    <button class="btn choose-month">На месяц</button>
-                    <button class="btn choose-ten">На 10 дней</button>
+                    <button data-choose="week" class="btn active choose-week">
+                        На неделю
+                    </button>
+                    <button data-choose="month" class="btn choose-month">
+                        На месяц
+                    </button>
+                    <button data-choose="five" class="btn choose-ten">На 5 дней</button>
                 </div>
 
                 <div class="filter__reset">
@@ -102,17 +105,18 @@
 
         <section class="cards">
             <div class="container">
-                <div class="card">
-                    <h3 class="card__title">Сегодня</h3>
-                    <time class="card__date">28 авг</time>
-                    <img src="assets/weathers/rainy.svg" alt="Rainy" class="card__img" />
-                    <p class="card__temp">+18°</p>
-                    <small class="card__temp-night">+15°</small>
-                    <p class="card__descr">Облачно</p>
+                <div class="cards-container">
+                    <!-- <div class="card">
+                        <h3 class="card__title">Сегодня</h3>
+                        <time class="card__date">28 авг</time>
+                        <img src="assets/weathers/rainy.svg" alt="Rainy" class="card__img" />
+                        <p class="card__temp">+18°</p>
+                        <small class="card__temp-night">+15°</small>
+                        <p class="card__descr">Облачно</p>
+                    </div> -->
                 </div>
             </div>
         </section>
-
     </main>
 
     <script src="scripts/script.js"></script>

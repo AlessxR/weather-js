@@ -2,16 +2,22 @@
     padding-top: 27px;
 }
 
+
 .card {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
     width: 149px;
-    height: 200px;
+    height: 275px;
     border-radius: 10px;
     background: rgba(71, 147, 255, 0.2);
     padding: 11px;
+}
+
+.cards-container {
+    display: flex;
+    justify-content: space-between;
 }
 
 .card__title, .card__temp {
