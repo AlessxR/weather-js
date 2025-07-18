@@ -16,7 +16,7 @@ function success(position) {
 }
 
 function error(err) {
-    alert('Here is mistake!');
+    alert(err);
 }
 
 const chooseCity = document.querySelector('.search-choose');
@@ -30,33 +30,52 @@ const cards = document.querySelector('.cards-container');
 
 const theme = document.querySelector('.theme');
 
+const newCity = document.querySelector('.newCity');
+
+let date = new Date();
+
+const spinner = document.querySelector('.spinners');
+
 async function getCurrentWeatherInfo() {
+    showSpinner(spinner);
     try {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${"7e116dd2a795724c6bc7fcd06c96c407"}&units=metric&lang=ru`);
 
-        if (!response.ok) return new Error('Network problem.');
+        if (!response.ok) throw new Error(`${response.status}`);
 
         const data = await response.json();
 
-        console.log(data);
         return data;
     } catch (err) {
         console.error('Error');
+    } finally {
+        removeSpinner(spinner);
     }
 }
 
 async function setCurrentInformation() {
-    const moreInfo = await getCurrentWeatherInfo();
+    showSpinner(spinner);
+    try {
+        const moreInfo = await getCurrentWeatherInfo();
 
-    chooseCity.innerHTML = `<option value="1">${moreInfo.name}</option>`;
+        chooseCity.innerHTML = `<option value="1">${moreInfo.name}</option>`;
+        const icon = moreInfo.weather[0]?.icon;
 
-    const icon = moreInfo.weather[0]?.icon;
+        renderCurrentWeather(moreInfo.main.temp, icon, moreInfo.name, moreInfo.timezone);
+        renderCurrentMoreWeather(moreInfo.main.temp, moreInfo.main.feels_like, moreInfo.main.pressure, moreInfo.weather[0].description, moreInfo.wind.speed);
+    } catch(err) {
+        console.error('Что-то пошло не так...')
+    } finally {
+        removeSpinner(spinner);
+    }
+}
 
+function renderCurrentWeather(temp, icon, city, timeZone) {
     currentWeather.innerHTML = `
         <div class="current__today__block">
                         <div class="current__today-left">
                             <div class="current__info">
-                                <h3 class="current__temp">${Math.round(moreInfo.main.temp)}°</h3>
+                                <h3 class="current__temp">${temp}°</h3>
                                 <h3 class="current__label">Сегодня</h3>
                             </div>
                         </div>
@@ -65,50 +84,50 @@ async function setCurrentInformation() {
                         </div>
                     </div>
                     <div class="current__time">
-                        <time class="current__time-current">${new Date().getHours()}</time>
-                        <h3 class="current__time-city">Город: ${moreInfo.name}</h3>
+                        <time class="current__time-current">Время: ${date.getHours(timeZone)}:${date.getMinutes(timeZone)}</time>
+                        <h3 class="current__time-city">Город: ${city}</h3>
                     </div>
 
     `;
+}
 
-
+function renderCurrentMoreWeather(temp, feelsLike, pressure, description, windSpeed) {
     currentMore.innerHTML = `
         <li class="current__nav-item">
                                 <img class="current__nav-icon" src="assets/icons/temp.svg" alt="Temperature" />
                                 <h3 class="current__nav-header">Температура</h3>
-                                <h3 class="current__nav-descr">${moreInfo.main.temp} - ощущается как ${moreInfo.main.feels_like}</h3>
+                                <h3 class="current__nav-descr">${temp} - ощущается как ${feelsLike}</h3>
                             </li>
 
                             <li class="current__nav-item">
                                 <img class="current__nav-icon" src="assets/icons/pressure.svg" alt="Pressure" />
                                 <h3 class="current__nav-header">Давление</h3>
-                                <h3 class="current__nav-descr">${moreInfo.main.pressure} мм ртутного столба - нормальное</h3>
+                                <h3 class="current__nav-descr">${pressure} мм ртутного столба - нормальное</h3>
                             </li>
 
                             <li class="current__nav-item">
                                 <img class="current__nav-icon" src="assets/icons/precipitation.svg"
                                     alt="Precipitation" />
                                 <h3 class="current__nav-header">Осадки</h3>
-                                <h3 class="current__nav-descr">${moreInfo.weather[0].description}</h3>
+                                <h3 class="current__nav-descr">${description}</h3>
                             </li>
 
                             <li class="current__nav-item">
                                 <img class="current__nav-icon" src="assets/icons/wind.svg" alt="Wind" />
                                 <h3 class="current__nav-header">Ветер</h3>
-                                <h3 class="current__nav-descr">${moreInfo.wind.speed}</h3>
+                                <h3 class="current__nav-descr">${windSpeed}</h3>
                             </li>
     `;
 }
 
 async function getFiveDays() {
+    showSpinner(spinner);
     try {
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${51}&lon=${31}&appid=${"7e116dd2a795724c6bc7fcd06c96c407"}&units=metric&lang=ru`);
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${"7e116dd2a795724c6bc7fcd06c96c407"}&units=metric&lang=ru`);
 
+        if (!response.ok) throw new Error(`Ошибка ${response.status}`);
 
         const data = await response.json();
-
-        console.log(data);
-
         const forecast = data.list.filter(item => item.dt_txt.includes("12:00:00"));
 
         cards.innerHTML = '';
@@ -136,6 +155,8 @@ async function getFiveDays() {
         }
     )} catch(err) {
         console.error('Error');
+    } finally {
+        removeSpinner(spinner);
     }
 }
 
@@ -154,7 +175,7 @@ function setFilter(container) {
             }
         }
     });
-};
+}
 
 function setTab(btns) {
     btns.forEach(item => {
@@ -181,8 +202,43 @@ theme.addEventListener('click', () => {
     } else {
         addDarkTheme();
     }
-})
+});
+
+async function getInformationCity() {
+    const cityName = newCity.value.trim();
+
+    if (!cityName) {
+        newCity.classList.add('red');
+        return;
+    }
+
+
+
+    try {
+        const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${"7e116dd2a795724c6bc7fcd06c96c407"}&units=metric&lang=ru`);
+
+        if (!response.ok) throw new Error(`Что-то не так: ${response.status}`);
+
+        const data = await response.json();
+
+        renderCurrentWeather(data.main.temp, data.weather[0].icon, data.name);
+
+    } catch (error) {
+        console.error("Ошибка при получении данных о погоде:", error);
+    }
+}
+
+function showSpinner(spinner) {
+    spinner.classList.remove('spinner');
+}
+
+function removeSpinner(spinner) {
+    spinner.classList.add('spinner');
+}
+
+newCity.addEventListener('change', getInformationCity);
 
 getLocation();
 setTab(btns);
 setFilter(chooseFilter);
+getInformationCity();

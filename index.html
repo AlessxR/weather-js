@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/filters.css" />
     <link rel="stylesheet" href="css/cards.css" />
     <!-- <link rel="stylesheet" href="css/dark.css" /> -->
+    <link rel="stylesheet" href="css/media.css">
     <link rel="stylesheet" href="css/style.css" />
     <title>JS Weather</title>
 </head>
@@ -27,7 +28,10 @@
 
                 <select name="choose-city" class="search-choose">
                     <!-- <option value="1">Выбрать город</option> -->
+
                 </select>
+
+                <input type="text" placeholder="Введите город..." class="newCity">
             </div>
         </div>
     </header>
@@ -36,6 +40,7 @@
         <section class="current">
             <div class="container">
                 <div class="current__today">
+                    <img src="assets/spinner.svg" alt="Spinner" class="spinners">
                     <!-- <div class="current__today__block">
                         <div class="current__today-left">
                             <div class="current__info">
@@ -56,6 +61,7 @@
                 <div class="current__more">
                     <nav class="current__nav">
                         <ul class="current__nav-list">
+                            <img src="assets/spinner.svg" alt="Spinner" class="spinners">
                             <!-- <li class="current__nav-item">
                                 <img class="current__nav-icon" src="assets/icons/temp.svg" alt="Temperature" />
                                 <h3 class="current__nav-header">Температура</h3>
@@ -107,6 +113,7 @@
         <section class="cards">
             <div class="container">
                 <div class="cards-container">
+                    <img src="assets/spinner.svg" alt="Spinner" class="spinners">
                     <!-- <div class="card">
                         <h3 class="card__title">Сегодня</h3>
                         <time class="card__date">28 авг</time>

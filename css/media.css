@@ -1,0 +1,125 @@
+@media (max-width: 1256px) {
+    .container {
+        width: 1100px;
+    }
+
+    .header__logo span {
+        font-size: 20px;
+    }
+
+    .current__temp {
+        font-size: 80px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .container {
+        width: 950px;
+    }
+
+    .current__today__block {
+        gap: 40px;
+    }
+
+    .current__temp {
+        font-size: 70px;
+    }
+
+    .current__more {
+        padding-top: 35px;
+        padding-left: 20px;
+    }
+
+    .card {
+        width: 172px;
+    }
+
+    .card__descr {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 900px) {
+    .container {
+        width: 800px;
+    }
+
+    .current__temp {
+        font-size: 50px;
+    }
+
+    .current__label {
+        font-size: 30px;
+    }
+
+    .current__nav-item {
+        gap: 15px;
+    }
+
+    .current__more {
+        padding: 0;
+        padding-top: 20px;
+    }
+
+    .current__nav-descr {
+        font-size: 12px;
+    }
+
+    .card {
+        width: 145px;
+    }
+}
+
+@media (max-width: 759px) {
+    .container {
+        width: 700px;
+    }
+
+    .header__search {
+        display: none;
+    }
+
+    .current__temp {
+        font-size: 35px;
+    }
+
+    .current__nav-list {
+        padding: 0;
+        padding-left: 30px;
+        gap: 50px;
+    }
+
+    .current__nav-descr {
+        font-size: 9px;
+    }
+
+    .cards-container {
+        flex-wrap: wrap;
+        gap: 25px;
+    }
+}
+
+@media (max-width: 658px) {
+    .container {
+        width: 600px;
+    } 
+
+    .current__today, .current__more {
+        height: 100vh;
+    }
+
+    .current__today__block {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .current__time-city {
+        text-align: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 550px;
+    }
+}
