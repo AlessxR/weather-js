@@ -41,3 +41,15 @@ body {
 .spinner {
     display: none;
 }
+
+.newCity {
+    border: none;
+    border-radius: 15px;
+    padding-left: 10px;
+}
+
+.wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}

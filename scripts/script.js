@@ -36,6 +36,11 @@ let date = new Date();
 
 const spinner = document.querySelector('.spinners');
 
+// let cities = {
+//     id: new Date().now(),
+//     city: "Kiev"
+// };
+
 async function getCurrentWeatherInfo() {
     showSpinner(spinner);
     try {
@@ -58,7 +63,7 @@ async function setCurrentInformation() {
     try {
         const moreInfo = await getCurrentWeatherInfo();
 
-        chooseCity.innerHTML = `<option value="1">${moreInfo.name}</option>`;
+        chooseCity.innerHTML = `<option value="${moreInfo.name}">${moreInfo.name}</option>`;
         const icon = moreInfo.weather[0]?.icon;
 
         renderCurrentWeather(moreInfo.main.temp, icon, moreInfo.name, moreInfo.timezone);
@@ -169,6 +174,7 @@ function setFilter(container) {
                 getFiveDays();
             } else if (event.target.getAttribute('data-choose') === 'month') {
                 cards.textContent = '';
+
             } else {
                 cards.textContent = '';
 
@@ -204,15 +210,8 @@ theme.addEventListener('click', () => {
     }
 });
 
-async function getInformationCity() {
-    const cityName = newCity.value.trim();
-
-    if (!cityName) {
-        newCity.classList.add('red');
-        return;
-    }
-
-
+async function getInformationCity(cityName) {
+    cityName = cityName.trim();
 
     try {
         const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${"7e116dd2a795724c6bc7fcd06c96c407"}&units=metric&lang=ru`);
@@ -222,10 +221,50 @@ async function getInformationCity() {
         const data = await response.json();
 
         renderCurrentWeather(data.main.temp, data.weather[0].icon, data.name);
+        renderCurrentMoreWeather(
+            data.main.temp,
+            data.main.feels_like,
+            data.main.pressure,
+            data.weather[0].description,
+            data.wind.speed
+        );
+
+        latitude = data.coord.lat;
+        longitude = data.coord.lon;
+        getFiveDays();
 
     } catch (error) {
         console.error("Ошибка при получении данных о погоде:", error);
     }
+}
+
+function favoriteCities(input) {
+    input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            const city = input.value.trim();
+            if (!city) return;
+
+
+            for (let option of chooseCity.options) {
+                if (option.value.toLowerCase() === city.toLowerCase()) {
+                    // alert('Такой город уже есть...');
+                    chooseCity.value = option.value;
+                    chooseCity.dispatchEvent(new Event('change'));
+                    input.value = '';
+                    return;
+                }
+            }
+
+            chooseCity.insertAdjacentHTML(
+                'beforeend',
+                `<option value="${city}">${city}</option>`
+            );
+            
+            chooseCity.value = city;
+            chooseCity.dispatchEvent(new Event('change'));
+            input.value = '';
+        }
+    });
 }
 
 function showSpinner(spinner) {
@@ -236,9 +275,16 @@ function removeSpinner(spinner) {
     spinner.classList.add('spinner');
 }
 
-newCity.addEventListener('change', getInformationCity);
+newCity.addEventListener('change', (e) => {
+    getInformationCity(e.target.value);
+});
+
+chooseCity.addEventListener('change', () => {
+    getInformationCity(chooseCity.value);
+});
+
 
 getLocation();
 setTab(btns);
 setFilter(chooseFilter);
-getInformationCity();
+favoriteCities(newCity);
