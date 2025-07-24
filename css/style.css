@@ -31,7 +31,7 @@ body {
 }
 
 .active {
-    background: rgb(71, 147, 255);
+    background: rgb(71, 147, 255) !important;
 }
 
 .error {

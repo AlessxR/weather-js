@@ -107,7 +107,7 @@ function renderCurrentMoreWeather(temp, feelsLike, pressure, description, windSp
                             <li class="current__nav-item">
                                 <img class="current__nav-icon" src="assets/icons/pressure.svg" alt="Pressure" />
                                 <h3 class="current__nav-header">Давление</h3>
-                                <h3 class="current__nav-descr">${pressure} мм ртутного столба - нормальное</h3>
+                                <h3 class="current__nav-descr">${pressure} мм ртутного столба</h3>
                             </li>
 
                             <li class="current__nav-item">
@@ -120,7 +120,7 @@ function renderCurrentMoreWeather(temp, feelsLike, pressure, description, windSp
                             <li class="current__nav-item">
                                 <img class="current__nav-icon" src="assets/icons/wind.svg" alt="Wind" />
                                 <h3 class="current__nav-header">Ветер</h3>
-                                <h3 class="current__nav-descr">${windSpeed}</h3>
+                                <h3 class="current__nav-descr">${windSpeed} м/c</h3>
                             </li>
     `;
 }
@@ -173,11 +173,8 @@ function setFilter(container) {
             if (event.target.getAttribute('data-choose') === 'five') {
                 getFiveDays();
             } else if (event.target.getAttribute('data-choose') === 'month') {
-                cards.textContent = '';
-
+                getFiveDays();
             } else {
-                cards.textContent = '';
-
             }
         }
     });
@@ -205,15 +202,20 @@ theme.addEventListener('click', () => {
 
     if (isDark) {
         isDark.remove();
+        saveTheme(false);
     } else {
         addDarkTheme();
+        saveTheme(true);
     }
 });
 
 async function getInformationCity(cityName) {
     cityName = cityName.trim();
 
+    localStorage.setItem('lastCity', cityName);
     try {
+
+
         const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${"7e116dd2a795724c6bc7fcd06c96c407"}&units=metric&lang=ru`);
 
         if (!response.ok) throw new Error(`Что-то не так: ${response.status}`);
@@ -249,6 +251,7 @@ function favoriteCities(input) {
                 if (option.value.toLowerCase() === city.toLowerCase()) {
                     // alert('Такой город уже есть...');
                     chooseCity.value = option.value;
+                    localStorage.setItem('cityList', data.name);
                     chooseCity.dispatchEvent(new Event('change'));
                     input.value = '';
                     return;
@@ -263,6 +266,8 @@ function favoriteCities(input) {
             chooseCity.value = city;
             chooseCity.dispatchEvent(new Event('change'));
             input.value = '';
+
+            saveCityToStorage(city);
         }
     });
 }
@@ -283,8 +288,42 @@ chooseCity.addEventListener('change', () => {
     getInformationCity(chooseCity.value);
 });
 
+function saveTheme(isDark) {
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+}
 
-getLocation();
+function loadTheme() {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark') addDarkTheme();
+}
+
+function loadLastCity() {
+    const lastCity = localStorage.getItem('lastCity');
+    if (lastCity) {
+        getInformationCity(lastCity);
+    } else {
+        getLocation();
+    }
+}
+
+function saveCityToStorage(city) {
+    let cityList = JSON.parse(localStorage.getItem('cityList')) || [];
+    if (!cityList.includes(city)) {
+        cityList.push(city);
+        localStorage.setItem('cityList', JSON.stringify(cityList));
+    }
+}
+
+function loadSavedCities() {
+    const cities = JSON.parse(localStorage.getItem('cityList')) || [];
+    cities.forEach(city => {
+        chooseCity.insertAdjacentHTML('beforeend', `<option value="${city}">${city}</option>`);
+    });
+}
+
+loadTheme();
+loadSavedCities();
+loadLastCity();
 setTab(btns);
 setFilter(chooseFilter);
 favoriteCities(newCity);
